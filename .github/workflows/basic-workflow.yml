@@ -41,9 +41,12 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: echo Hello, from the the PR!
 
-  deployment:
-    runs-on: ubuntu-latest
-    environment: DEV
-    steps:
-      - name: deploy
-        run: echo Hello, from the Deployment!
+      - uses: actions/checkout@v3
+        with:
+          repository: im-sandbox-mikaelt/hello-DOE2-composite-action
+          path: ./.github/actions/hello-DOE2-composite-action
+
+      - name: Run a composite action from a different repo
+        uses: ./.github/actions/hello-DOE2-composite-action
+        with:
+          who-to-greet: 'Mona the Octocat'
